@@ -1,16 +1,12 @@
 package com.sit.cloudnative.UserService;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.validation.constraints.NotBlank;
 
 
@@ -20,7 +16,7 @@ public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
     @NotBlank
     private String firstname;
@@ -33,7 +29,7 @@ public class User implements Serializable{
         super();
     }
 
-    public User(int id,String firstname, String lastname){
+    public User(Long id,String firstname, String lastname){
         this.setId(id);
         this.setFirstname(firstname);
         this.setLastname(lastname);
@@ -43,14 +39,14 @@ public class User implements Serializable{
     /**
      * @return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

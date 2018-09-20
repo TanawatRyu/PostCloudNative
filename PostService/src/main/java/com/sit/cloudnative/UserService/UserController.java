@@ -1,6 +1,7 @@
 package com.sit.cloudnative.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -29,13 +30,11 @@ public class UserController{
         return new ResponseEntity<User>(user_object,HttpStatus.OK);
     }
 
-
-    //GetById
-    // @RequestMapping(value="/user/{user_id}" , method = RequestMethod.GET)
-    // public ResponseEntity<User> getUser(@PathVariable("user_id") int id){
-    //     User user = userService.getUserById(id);
-    //     return new ResponseEntity<User>(user,HttpStatus.OK);
+    @RequestMapping(value="/user/{user_id}" , method = RequestMethod.GET)
+    public ResponseEntity<Optional<User>> getUserByUserId(@PathVariable("user_id") Long id) {
+        Optional<User> user = userService.getUserById(id);
+        return new ResponseEntity<Optional<User>>(user,HttpStatus.OK);
         
-    // } 
+    } 
 
 }

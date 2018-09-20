@@ -9,15 +9,12 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.*;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sit.cloudnative.UserService.UserService;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -44,8 +41,11 @@ public class Post implements Serializable {
     @Column(name = "description")
     private String description;
 
-    
-    @Column(name = "user_id")
+    @NotBlank
+    @Column(name = "content")
+    private String content;    
+
+    @Column(name = "userid")
     private Long user_Id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -62,10 +62,11 @@ public class Post implements Serializable {
         super();
     }
 
-    public Post(Long id, String title, String description, Long user_Id, Date createdAt, Date updatedAt) {
+    public Post(Long id, String title, String description, String content, Long user_Id, Date createdAt, Date updatedAt) {
         this.setId(id);
         this.setTitle(title);
         this.setDescription(description);
+        this.setContent(content);
         this.setUserId(user_Id);
         this.setCreatedAt(createdAt);
         this.setUpdatedAt(updatedAt);
@@ -112,6 +113,20 @@ public class Post implements Serializable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the content
+     */
+    public String getContent() {
+        return content;
+    }
+
+    /**
+     * @param content the content to set
+     */
+    public void setContent(String content) {
+        this.content = content;
     }
 
     /**
