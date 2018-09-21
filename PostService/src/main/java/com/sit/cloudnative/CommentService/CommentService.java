@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.sit.cloudnative.PostService.Post;
 import com.sit.cloudnative.PostService.PostRepository;
 import com.sit.cloudnative.PostService.PostService;
+import com.sit.cloudnative.UserService.UserService;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,9 @@ public class CommentService {
     private PostRepository postRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private PostService postService;
 
     public Object[] getAllComments(Long postId, Pageable pageable){
@@ -33,9 +37,13 @@ public class CommentService {
         return listPostAllCommentService;  
     }
 
-    public Optional<Comment> create(Long postId,Comment comment){
+    public Optional<Comment> create(Long postId,Comment comment, Long user_Id){
         return postRepository.findById(postId).map(post -> {
             comment.setPost(post);
+            userService.getUserById(user_Id).map(user -> {
+                comment.setUser(user);
+                return commentRepository.save(comment);
+            });
             return commentRepository.save(comment);
         });
     }
@@ -47,7 +55,7 @@ public class CommentService {
         });
     }
 
-    public Optional<Object> delete(Long postId, Long commentId){
+    public Optional<Object> delete(Long commentId){
         return commentRepository.findById(commentId).map(comment -> {
             commentRepository.delete(comment);
             return ResponseEntity.ok().build();

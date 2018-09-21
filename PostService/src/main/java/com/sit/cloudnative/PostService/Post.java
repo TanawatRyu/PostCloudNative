@@ -6,16 +6,23 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sit.cloudnative.UserService.User;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -33,20 +40,23 @@ public class Post implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank
+
     @Column(name = "title")
     private String title;
 
-    @NotBlank
+
     @Column(name = "description")
     private String description;
 
-    @NotBlank
+
     @Column(name = "content")
     private String content;    
 
-    @Column(name = "userid")
-    private Long user_Id;
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user_Id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -62,12 +72,12 @@ public class Post implements Serializable {
         super();
     }
 
-    public Post(Long id, String title, String description, String content, Long user_Id, Date createdAt, Date updatedAt) {
+    public Post(Long id, String title, String description, String content, User user_Id, Date createdAt, Date updatedAt) {
         this.setId(id);
         this.setTitle(title);
         this.setDescription(description);
         this.setContent(content);
-        this.setUserId(user_Id);
+        this.setUser(user_Id);
         this.setCreatedAt(createdAt);
         this.setUpdatedAt(updatedAt);
 
@@ -132,14 +142,14 @@ public class Post implements Serializable {
     /**
      * @param user_Id the user_Id to set
      */
-    public void setUserId(Long user_Id) {
+    public void setUser(User user_Id) {
         this.user_Id = user_Id;
     }
 
     /**
      * @return the user_Id
      */
-    public Long getUserId() {
+    public User getUser() {
         return user_Id;
     }
 

@@ -11,7 +11,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.sit.cloudnative.PostService.PostRepository;
-import com.sit.cloudnative.PostService.PostService;
 
 @RestController
 public class CommentController {
@@ -25,8 +24,6 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @Autowired
-    private PostService postService;
 
     @RequestMapping(value="/post/{postId}/comments" , method = RequestMethod.GET)
     public ResponseEntity<Object[]> getAllCommentsByPostId(@PathVariable (value = "postId") Long postId, Pageable pageable) {
@@ -35,9 +32,9 @@ public class CommentController {
     }
     
 
-    @RequestMapping(value="/post/{postId}/comment" , method = RequestMethod.POST)
-    public ResponseEntity<Optional<Comment>> createComment(@PathVariable (value = "postId") Long postId, @Valid @RequestBody Comment comment) {
-        Optional<Comment> comment_Object = commentService.create(postId, comment);
+    @RequestMapping(value="/post/{postId}/comments/{userId}" , method = RequestMethod.POST)
+    public ResponseEntity<Optional<Comment>> createComment(@PathVariable (value = "postId") Long postId, @Valid @RequestBody Comment comment, @PathVariable (value = "userId") Long userId ) {
+        Optional<Comment> comment_Object = commentService.create(postId, comment, userId);
         return new ResponseEntity<Optional<Comment>>(comment_Object,HttpStatus.OK);
     }
 
@@ -48,8 +45,8 @@ public class CommentController {
     }
 
     @RequestMapping(value="/post/{postId}/comments/{commentId}" , method = RequestMethod.DELETE)
-    public ResponseEntity<Optional<Object>> deleteComment(@PathVariable (value = "postId") Long postId, @PathVariable (value = "commentId") Long commentId) {
-        Optional<Object> deleteComment_object  = commentService.delete(postId,commentId);
+    public ResponseEntity<Optional<Object>> deleteComment(@PathVariable (value = "commentId") Long commentId) {
+        Optional<Object> deleteComment_object  = commentService.delete(commentId);
         return new ResponseEntity<Optional<Object>>(deleteComment_object,HttpStatus.OK);
     }
 

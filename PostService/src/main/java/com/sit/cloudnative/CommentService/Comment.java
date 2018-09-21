@@ -3,6 +3,7 @@ package com.sit.cloudnative.CommentService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sit.cloudnative.PostService.Post;
+import com.sit.cloudnative.UserService.User;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,8 +38,11 @@ public class Comment implements Serializable {
     @JsonIgnore
     private Post post;
     
-    @Column(name = "userid")
-    private Long user_Id;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user_Id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -54,28 +58,27 @@ public class Comment implements Serializable {
         super();
     }
 
-    public Comment(Long id,String text, Post post,Long user_Id, Date createdAt, Date updatedAt) {
+    public Comment(Long id,String text, Post post,User user_Id, Date createdAt, Date updatedAt) {
         this.setId(id);
         this.setText(text);
         this.setPost(post);
-        this.setUserId(user_Id);
+        this.setUser(user_Id);
         this.setCreatedAt(createdAt);
         this.setUpdatedAt(updatedAt);
     }
     /**
      * @return the user_Id
      */
-    public Long getUserId() {
+    public User getUser() {
         return user_Id;
     }
 
     /**
      * @param user_Id the user_Id to set
      */
-    public void setUserId(Long user_Id) {
+    public void setUser(User user_Id) {
         this.user_Id = user_Id;
     }
-
 
     /**
      * @return the post
@@ -146,6 +149,5 @@ public class Comment implements Serializable {
     public void setPost(Post post) {
         this.post = post;
     }
-
 
 }
