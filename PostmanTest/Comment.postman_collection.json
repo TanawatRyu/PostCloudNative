@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "8a4a5a05-b007-491b-ac47-97d3cd8e9eb0",
+		"name": "Comment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/post/1/comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99823b76-1a1b-4236-acb8-a7f941287e67",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"get comments by id\" , () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.test(\"data is array\", () => {",
+							"       const actualData = typeof(jsonData);",
+							"       const expectData = 'object';",
+							"       pm.expect(actualData).to.eql(expectData);",
+							"    });",
+							"    pm.test(\"data in array\", () => {",
+							"        const dataInArray = jsonData[0];",
+							"        pm.test(\"id is number\", () => {",
+							"           const actualData = typeof(dataInArray.id);",
+							"           const expectData = 'number';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"title is string\", () => {",
+							"           const actualData = typeof(dataInArray.title);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"description is string\", () => {",
+							"           const actualData = typeof(dataInArray.description);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"content is string\", () => {",
+							"           const actualData = typeof(dataInArray.content);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"createdAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.createdAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"updatedAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.updatedAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"id is number\", () => {",
+							"           const actualData = typeof(dataInArray.user.id);",
+							"           const expectData = 'number';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"firstname is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.firstname);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"lastname is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.lastname);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"createdAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.createdAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"updatedAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.updatedAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"    });",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/post/1/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/post/1/comments/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0022f59-42d6-426a-9f9e-2269e499bbc9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Post comment by id\" , () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.test(\"data is array\", () => {",
+							"       const actualData = typeof(jsonData);",
+							"       const expectData = 'object';",
+							"       pm.expect(actualData).to.eql(expectData);",
+							"    });",
+							"    pm.test(\"data in array\", () => {",
+							"        const dataInArray = jsonData[0];",
+							"        pm.test(\"id is number\", () => {",
+							"           const actualData = typeof(dataInArray.id);",
+							"           const expectData = 'number';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"title is string\", () => {",
+							"           const actualData = typeof(dataInArray.title);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"description is string\", () => {",
+							"           const actualData = typeof(dataInArray.description);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"content is string\", () => {",
+							"           const actualData = typeof(dataInArray.content);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"createdAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.createdAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"updatedAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.updatedAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"id is number\", () => {",
+							"           const actualData = typeof(dataInArray.user.id);",
+							"           const expectData = 'number';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"firstname is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.firstname);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"lastname is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.lastname);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"createdAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.createdAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"        pm.test(\"updatedAt is string\", () => {",
+							"           const actualData = typeof(dataInArray.user.updatedAt);",
+							"           const expectData = 'string';",
+							"           pm.expect(actualData).to.eql(expectData);",
+							"        });",
+							"    });",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/post/1/comments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/post/1/comments/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "589ea11a-9686-4a96-94fc-294dcb8a0771",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200 .Put comment is complete.\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/post/1/comments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/post/1/comments/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "652597eb-a880-49a3-a47f-7bd505f51fab",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200 .Delete comment is complete.\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/post/1/comments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"1",
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
