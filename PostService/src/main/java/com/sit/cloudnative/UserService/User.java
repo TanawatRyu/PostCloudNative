@@ -1,14 +1,27 @@
 package com.sit.cloudnative.UserService;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
 
 @Entity
 @Table(name="user")
@@ -24,15 +37,27 @@ public class User implements Serializable{
     @NotBlank
     private String lastname;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    @CreatedDate
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    @LastModifiedDate
+    private Date updatedAt;
+
 
     public User(){
         super();
     }
 
-    public User(Long id,String firstname, String lastname){
+    public User(Long id,String firstname, String lastname, Date createdAt, Date updatedAt){
         this.setId(id);
         this.setFirstname(firstname);
         this.setLastname(lastname);
+        this.setCreatedAt(createdAt);
+        this.setUpdatedAt(updatedAt);
 
     }
 
@@ -77,7 +102,33 @@ public class User implements Serializable{
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
+    /**
+     * @return the createdAt
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param updatedAt the updatedAt to set
+     */
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * @return the updatedAt
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
 
 }

@@ -43,10 +43,10 @@ public class UserController{
         return new ResponseEntity<Optional<User>>(updateUser_Object,HttpStatus.OK);
     }
 
-    @RequestMapping(value="/user/{userId}" , method = RequestMethod.DELETE)
-    public ResponseEntity<Optional<Object>> deleteUser(@PathVariable (value = "userId") Long userId){
-        Optional<Object> deleteUser_Object = userService.delete(userId);
-        return new ResponseEntity<Optional<Object>>(deleteUser_Object,HttpStatus.OK);
-    }
+    // @RequestMapping(value="/user/{userId}" , method = RequestMethod.DELETE)
+    // public ResponseEntity<Optional<Object>> deleteUser(@PathVariable (value = "userId") Long userId){
+    //     Optional<Object> deleteUser_Object = userService.delete(userId);
+    //     return new ResponseEntity<Optional<Object>>(deleteUser_Object,HttpStatus.OK);
+    // }
 
 }

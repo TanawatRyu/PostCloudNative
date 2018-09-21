@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +29,9 @@ public class PostController{
     }
 
     @RequestMapping(value="/post/{post_id}" , method = RequestMethod.GET)
-    public ResponseEntity<Post> getPostByPostId(@PathVariable("post_id") Long id) {
-        Post post = postService.getPostById(id);
-        return new ResponseEntity<Post>(post,HttpStatus.OK);
+    public ResponseEntity<Object[]> getPostByPostId(@PathVariable("post_id") Long id, Pageable pageable) {
+        Object[] listPostWithComments = postService.getPostById(id,pageable);
+        return new ResponseEntity<Object[]>(listPostWithComments,HttpStatus.OK);
 
     }
 

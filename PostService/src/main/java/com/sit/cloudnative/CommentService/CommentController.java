@@ -10,16 +10,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.sit.cloudnative.PostService.PostRepository;
-
 @RestController
 public class CommentController {
-
-    @Autowired
-    private CommentRepository commentRepository;
-
-    @Autowired
-    private PostRepository postRepository;
 
     @Autowired
     private CommentService commentService;
@@ -31,7 +23,6 @@ public class CommentController {
         return new ResponseEntity<Object[]>(listPostAllComment_Object,HttpStatus.OK);
     }
     
-
     @RequestMapping(value="/post/{postId}/comments/{userId}" , method = RequestMethod.POST)
     public ResponseEntity<Optional<Comment>> createComment(@PathVariable (value = "postId") Long postId, @Valid @RequestBody Comment comment, @PathVariable (value = "userId") Long userId ) {
         Optional<Comment> comment_Object = commentService.create(postId, comment, userId);

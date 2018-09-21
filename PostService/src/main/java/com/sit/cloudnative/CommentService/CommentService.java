@@ -2,13 +2,11 @@ package com.sit.cloudnative.CommentService;
 
 import java.util.Optional;
 
-import com.sit.cloudnative.PostService.Post;
 import com.sit.cloudnative.PostService.PostRepository;
 import com.sit.cloudnative.PostService.PostService;
 import com.sit.cloudnative.UserService.UserService;
 
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
 import org.springframework.data.domain.Pageable;
@@ -29,12 +27,7 @@ public class CommentService {
     private PostService postService;
 
     public Object[] getAllComments(Long postId, Pageable pageable){
-        Post postById = postService.getPostById(postId);
-        Page commentPage =  commentRepository.findByPostId(postId, pageable);
-        Object [] listPostAllCommentService = new Object[2];
-        listPostAllCommentService[0] = postById;
-        listPostAllCommentService[1] = commentPage;
-        return listPostAllCommentService;  
+        return postService.getPostById(postId,pageable);  
     }
 
     public Optional<Comment> create(Long postId,Comment comment, Long user_Id){
