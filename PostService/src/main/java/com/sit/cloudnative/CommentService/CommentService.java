@@ -9,6 +9,7 @@ import com.sit.cloudnative.UserService.UserService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @Service
@@ -26,8 +27,8 @@ public class CommentService {
     @Autowired
     private PostService postService;
 
-    public Object[] getAllComments(Long postId, Pageable pageable){
-        return postService.getPostById(postId,pageable);  
+    public Page<Comment> getAllComments(Long postId, Pageable pageable){
+        return commentRepository.findByPostId(postId,pageable);  
     }
 
     public Optional<Comment> create(Long postId,Comment comment, Long user_Id){

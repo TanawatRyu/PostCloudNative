@@ -2,7 +2,9 @@ package com.sit.cloudnative.PostService;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -12,11 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sit.cloudnative.CommentService.Comment;
 import com.sit.cloudnative.UserService.User;
 
 import org.hibernate.annotations.OnDelete;
@@ -32,29 +36,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "post")
 public class Post implements Serializable {
 
-	
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-
     @Column(name = "title")
     private String title;
-
 
     @Column(name = "description")
     private String description;
 
-
     @Column(name = "content")
-    private String content;    
+    private String content;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user_Id;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "post")
+    private List<Comment> comment;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -70,7 +73,8 @@ public class Post implements Serializable {
         super();
     }
 
-    public Post(Long id, String title, String description, String content, User user_Id, Date createdAt, Date updatedAt) {
+    public Post(Long id, String title, String description, String content, User user_Id, Date createdAt,
+            Date updatedAt) {
         this.setId(id);
         this.setTitle(title);
         this.setDescription(description);
@@ -149,6 +153,20 @@ public class Post implements Serializable {
      */
     public User getUser() {
         return user_Id;
+    }
+
+    /**
+     * @return the comment
+     */
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    /**
+     * @param comment the comment to set
+     */
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
     }
 
     /**

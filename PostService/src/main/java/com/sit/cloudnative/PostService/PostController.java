@@ -29,9 +29,9 @@ public class PostController{
     }
 
     @RequestMapping(value="/post/{post_id}" , method = RequestMethod.GET)
-    public ResponseEntity<Object[]> getPostByPostId(@PathVariable("post_id") Long id, Pageable pageable) {
-        Object[] listPostWithComments = postService.getPostById(id,pageable);
-        return new ResponseEntity<Object[]>(listPostWithComments,HttpStatus.OK);
+    public ResponseEntity<Optional<Post>> getPostByPostId(@PathVariable("post_id") Long id) {
+        Optional<Post> listPostWithComments = postService.getPostById(id);
+        return new ResponseEntity<Optional<Post>>(listPostWithComments,HttpStatus.OK);
 
     }
 

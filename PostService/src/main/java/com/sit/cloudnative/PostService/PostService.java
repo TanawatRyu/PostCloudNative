@@ -20,20 +20,13 @@ public class PostService {
     @Autowired 
     private UserRepository userRepository; 
 
-    @Autowired
-    private CommentRepository commentRepository;
 
     public List<Post> getAllPost(){
         return postRepository.findAll();
     }
 
-    public Object[] getPostById(Long postId , Pageable pageable) {
-        Optional<Post> postById = postRepository.findById(postId);
-        Page commentPage =  commentRepository.findByPostId(postId, pageable);
-        Object [] listPostAllCommentService = new Object[2];
-        listPostAllCommentService[0] = postById;
-        listPostAllCommentService[1] = commentPage;
-        return listPostAllCommentService;         
+    public Optional<Post> getPostById(Long postId) {
+        return postRepository.findById(postId);         
     }
 
     public Optional<Post> create(Long userId,Post post){

@@ -1,6 +1,7 @@
 package com.sit.cloudnative.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ public class CommentController {
 
 
     @RequestMapping(value="/post/{postId}/comments" , method = RequestMethod.GET)
-    public ResponseEntity<Object[]> getAllCommentsByPostId(@PathVariable (value = "postId") Long postId, Pageable pageable) {
-        Object [] listPostAllComment_Object = commentService.getAllComments(postId, pageable);
-        return new ResponseEntity<Object[]>(listPostAllComment_Object,HttpStatus.OK);
+    public ResponseEntity<Page<Comment>> getAllCommentsByPostId(@PathVariable (value = "postId") Long postId, Pageable pageable) {
+        Page<Comment> listPostAllComment_Object = commentService.getAllComments(postId, pageable);
+        return new ResponseEntity<Page<Comment>>(listPostAllComment_Object,HttpStatus.OK);
     }
     
     @RequestMapping(value="/post/{postId}/comments/{userId}" , method = RequestMethod.POST)
