@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sit.cloudnative.CommentService.CommentRepository;
-import com.sit.cloudnative.UserService.UserRepository;
+import com.sit.cloudnative.UserService.User;
+import com.sit.cloudnative.UserService.UserAdapter;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,7 @@ public class PostService {
     private PostRepository postRepository;
 
     @Autowired 
-    private UserRepository userRepository; 
+    private UserAdapter userAdapter; 
 
 
     public List<Post> getAllPost(){
@@ -29,11 +30,10 @@ public class PostService {
         return postRepository.findById(postId);         
     }
 
-    public Optional<Post> create(Long userId,Post post){
-        return userRepository.findById(userId).map(user -> {
+    public Post create(Long userId,Post post){
+            User user = userAdapter.getUserDetail(userId);
             post.setUser(user);
-            return postRepository.save(post);
-        });       
+            return postRepository.save(post);       
     }
 
     public Optional<Object> update(Long postid,Post postRequest) {

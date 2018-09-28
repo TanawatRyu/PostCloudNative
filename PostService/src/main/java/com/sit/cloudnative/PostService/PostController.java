@@ -36,9 +36,9 @@ public class PostController{
     }
 
     @RequestMapping(value="/post/{userId}" , method = RequestMethod.POST)
-    public ResponseEntity<Optional<Post>> createPost(@PathVariable (value = "userId") Long userId, @Valid @RequestBody Post post){
-        Optional<Post> post_Object = postService.create(userId,post);
-        return new ResponseEntity<Optional<Post>>(post_Object,HttpStatus.OK);
+    public ResponseEntity<Post> createPost(@PathVariable (value = "userId") Long userId, @Valid @RequestBody Post post){
+        Post post_Object = postService.create(userId,post);
+        return new ResponseEntity<Post>(post_Object,HttpStatus.OK);
     }
 
     @RequestMapping(value="/post/{post_id}" , method = RequestMethod.PUT)

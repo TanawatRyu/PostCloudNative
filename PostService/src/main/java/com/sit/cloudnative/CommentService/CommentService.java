@@ -2,9 +2,11 @@ package com.sit.cloudnative.CommentService;
 
 import java.util.Optional;
 
+import com.sit.cloudnative.PostService.Post;
 import com.sit.cloudnative.PostService.PostRepository;
 import com.sit.cloudnative.PostService.PostService;
-import com.sit.cloudnative.UserService.UserService;
+import com.sit.cloudnative.UserService.User;
+import com.sit.cloudnative.UserService.UserAdapter;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +24,10 @@ public class CommentService {
     private PostRepository postRepository;
 
     @Autowired
-    private UserService userService;
+    private PostService postService;
 
     @Autowired
-    private PostService postService;
+    private UserAdapter userAdapter;
 
     public Page<Comment> getAllComments(Long postId, Pageable pageable){
         return commentRepository.findByPostId(postId,pageable);  
@@ -33,11 +35,9 @@ public class CommentService {
 
     public Optional<Comment> create(Long postId,Comment comment, Long user_Id){
         return postRepository.findById(postId).map(post -> {
+            User user = userAdapter.getUserDetail(user_Id);
             comment.setPost(post);
-            userService.getUserById(user_Id).map(user -> {
-                comment.setUser(user);
-                return commentRepository.save(comment);
-            });
+            comment.setUser(user);
             return commentRepository.save(comment);
         });
     }
